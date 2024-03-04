@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sharepref_sample/view/home_page/home_page.dart';
+import 'package:sharepref_sample/view/reg_screen/reg_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -24,6 +25,8 @@ class _LoginScreenState extends State<LoginScreen> {
             mainAxisSize: MainAxisSize.min,
             children: [
               Container(
+                height: 200,
+                width: 200,
                 decoration: BoxDecoration(
                     image: DecorationImage(
                         image: AssetImage("asset/unnamed.png"))),
@@ -81,16 +84,18 @@ class _LoginScreenState extends State<LoginScreen> {
               //
               ElevatedButton(
                   onPressed: () async {
-                    SharedPreferences preferences =
+                    SharedPreferences prefs =
                         await SharedPreferences.getInstance();
-                    String? savedUsername = preferences.getString("username");
+                    String? savedUsername = prefs.getString("username");
 
-                    String? savedPswd = preferences.getString("pswd");
+                    String? savedPswd = prefs.getString("pswd");
 
                     if (c1.text == savedUsername && c2.text == savedPswd) {
                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                           backgroundColor: Colors.green,
                           content: Text("login success")));
+                      prefs.setBool("isLogged", true);
+
                       Navigator.pushAndRemoveUntil(
                           context,
                           MaterialPageRoute(
@@ -107,16 +112,16 @@ class _LoginScreenState extends State<LoginScreen> {
               SizedBox(
                 height: 20,
               ),
-              // TextButton(
-              //     onPressed: () {
-              //       // navigate to registor screen
-              //       Navigator.pushReplacement(
-              //           context,
-              //           MaterialPageRoute(
-              //             builder: (context) => RegisterScreen(),
-              //           ));
-              //     },
-              //     child: Text("register now"))
+              TextButton(
+                  onPressed: () {
+                    // navigate to registor screen
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => RegisterScreen(),
+                        ));
+                  },
+                  child: Text("register now"))
             ],
           ),
         ),

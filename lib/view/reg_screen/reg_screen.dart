@@ -27,6 +27,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
             mainAxisSize: MainAxisSize.min,
             children: [
               Container(
+                height: 200,
+                width: 200,
                 decoration: BoxDecoration(
                     image: DecorationImage(
                         image: AssetImage("asset/unnamed.png"))),
@@ -35,14 +37,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 height: 20,
               ),
               Text(
-                "Welcome Back!",
+                "Sign Up",
                 style: TextStyle(
                     color: Colors.black,
                     fontWeight: FontWeight.bold,
                     fontSize: 40),
               ),
               Text(
-                "login to your existent account of pushpak courier",
+                "Create new account for pushpak courier",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.grey,
@@ -84,12 +86,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
               ),
               ElevatedButton(
                   onPressed: () async {
-                    SharedPreferences preferences =
+                    SharedPreferences prefs =
                         await SharedPreferences.getInstance();
                     //
                     if (c1.text.isNotEmpty && c2.text.isNotEmpty) {
-                      preferences.setString("username", c1.text);
-                      preferences.setString("pswd", c2.text);
+                      prefs.setString("username", c1.text);
+                      prefs.setString("pswd", c2.text);
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(

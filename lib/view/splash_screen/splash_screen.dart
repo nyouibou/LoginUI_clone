@@ -3,7 +3,9 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:sharepref_sample/view/reg_screen/reg_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sharepref_sample/view/home_page/home_page.dart';
+import 'package:sharepref_sample/view/login_screen/login_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -15,10 +17,19 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
-    Timer(Duration(seconds: 2), () {
-      Navigator.of(context).pushReplacement(MaterialPageRoute(
-        builder: (context) => RegisterScreen(),
-      ));
+    Timer(Duration(seconds: 2), () async {
+      //
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      bool isLogged = prefs.getBool("isLogged") ?? false;
+      if (isLogged == true) {
+        Navigator.of(context).pushReplacement(MaterialPageRoute(
+          builder: (context) => HomePage(),
+        ));
+      } else {
+        Navigator.of(context).pushReplacement(MaterialPageRoute(
+          builder: (context) => LoginScreen(),
+        ));
+      }
     });
     super.initState();
   }
@@ -31,8 +42,8 @@ class _SplashScreenState extends State<SplashScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
-              width: 300,
-              height: 300,
+              width: 200,
+              height: 200,
               decoration: BoxDecoration(
                   image:
                       DecorationImage(image: AssetImage("asset/unnamed.png"))),
@@ -40,9 +51,6 @@ class _SplashScreenState extends State<SplashScreen> {
             SizedBox(
               height: 15,
             ),
-            CircularProgressIndicator(
-              color: const Color.fromARGB(255, 43, 93, 178),
-            )
           ],
         ),
       ),

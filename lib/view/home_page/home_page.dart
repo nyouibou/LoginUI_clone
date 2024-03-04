@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-
-import '../splash_screen/splash_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sharepref_sample/view/login_screen/login_screen.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -10,11 +10,13 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  void _logout() {
+  Future<void> _logout() async {
     // Navigate back to SplashScreen and replace the current route
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setBool("isLogged", false);
     Navigator.pushAndRemoveUntil(
       context,
-      MaterialPageRoute(builder: (context) => SplashScreen()),
+      MaterialPageRoute(builder: (context) => LoginScreen()),
       (route) => false,
     );
   }
