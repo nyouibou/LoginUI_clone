@@ -26,10 +26,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              CircleAvatar(
-                radius: 50,
-                backgroundImage: NetworkImage(
-                    "https://i.pinimg.com/564x/0c/8d/de/0c8dded9de9d8bcc27498716d7170e05.jpg"),
+              Container(
+                decoration: BoxDecoration(
+                    image: DecorationImage(
+                        image: AssetImage("asset/unnamed.png"))),
               ),
               SizedBox(
                 height: 20,
